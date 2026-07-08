@@ -67,6 +67,25 @@
 4.  **分镜制作**: 进入 Phase 03，逐个生成镜头的关键帧。
 5.  **动效生成**: 确认关键帧无误后，批量生成视频片段。
 
+## License / 许可证
+
+本项目的开源许可说明请参考仓库中的 License 页面：
+
+[查看 CineGen AI Director License](https://github.com/UllrAI/CineGen-ShortDrama?tab=License-1-ov-file)
+
+请在使用、修改、分发或商业化使用本项目代码前，仔细阅读并遵守对应许可证条款。
+
+## AniKuku
+
+**AniKuku AI 漫剧制作平台** 也可提供商业化部署/私有化部署，用于 SaaS 运营或企业内生产流程，支持品牌定制或授权合作，AniKuku 的相关商业部署与授权方案亦可联系此邮箱。
+
+## 联系方式
+
+具体合作方式、部署方案与授权范围，可以通过邮件联系：
+
+**[visoar@ullrai.com](mailto:visoar@ullrai.com)**
+
+
 ---
 *Built for Creators, by CineGen.*
 
