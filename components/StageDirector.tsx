@@ -107,29 +107,38 @@ const StageDirector: React.FC<Props> = ({ project, updateProject }) => {
   };
 
   const handleGenerateVideo = async (shot: Shot) => {
-    if (!shot.interval) return;
-    
     const sKf = shot.keyframes?.find(k => k.type === 'start');
     const eKf = shot.keyframes?.find(k => k.type === 'end');
 
     if (!sKf?.imageUrl) return alert("请先生成起始帧！");
 
-    // Fix: Remove logic that auto-grabs next shot's frame.
-    // Prevent morphing artifacts by defaulting to Image-to-Video unless an End Frame is explicitly generated.
-    let endImageUrl = eKf?.imageUrl;
-    
-    setProcessingState({ id: shot.interval.id, type: 'video' });
-    
+    // Backfill an interval for legacy projects saved before intervals were
+    // initialized, so video generation works regardless of data vintage.
+    const interval = shot.interval || {
+      id: `int-${shot.id}`,
+      startKeyframeId: sKf.id,
+      endKeyframeId: eKf?.id || '',
+      duration: 5,
+      motionStrength: 5,
+      status: 'pending' as const
+    };
+
+    // Default to Image-to-Video unless an End Frame is explicitly generated,
+    // avoiding morphing artifacts from an auto-grabbed next-shot frame.
+    const endImageUrl = eKf?.imageUrl;
+
+    setProcessingState({ id: interval.id, type: 'video' });
+
     try {
       const videoUrl = await generateVideo(
-          shot.actionSummary, 
-          sKf.imageUrl, 
+          shot.actionSummary,
+          sKf.imageUrl,
           endImageUrl // Only pass if it exists
       );
 
       updateShot(shot.id, (s) => ({
         ...s,
-        interval: s.interval ? { ...s.interval, videoUrl, status: 'completed' } : undefined
+        interval: { ...(s.interval || interval), videoUrl, status: 'completed' }
       }));
     } catch (e: any) {
       console.error(e);

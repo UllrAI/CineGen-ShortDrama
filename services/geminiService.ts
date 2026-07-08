@@ -129,7 +129,9 @@ export const parseScriptToData = async (rawText: string, language: string = '中
     parsed = JSON.parse(text);
   } catch (e) {
     console.error("Failed to parse script data JSON:", e);
-    parsed = {};
+    // Surface the failure so the UI can prompt a retry instead of silently
+    // rendering an empty manifest.
+    throw new Error("剧本解析失败：AI 返回的数据格式无效，请重试或精简剧本内容。");
   }
   
   // Enforce String IDs for consistency and init variations
@@ -268,16 +270,33 @@ export const generateShotList = async (scriptData: ScriptData): Promise<Shot[]> 
     batchResults.forEach(shots => allShots.push(...shots));
   }
 
-  // Re-index shots to be sequential globally and set initial status
-  return allShots.map((s, idx) => ({
-    ...s,
-    id: `shot-${idx + 1}`,
-    keyframes: Array.isArray(s.keyframes) ? s.keyframes.map(k => ({ 
-      ...k, 
+  // Re-index shots to be sequential globally, normalize keyframe IDs, and
+  // initialize the video interval (without it the director workbench can never
+  // trigger video generation).
+  return allShots.map((s, idx) => {
+    const keyframes = Array.isArray(s.keyframes) ? s.keyframes.map(k => ({
+      ...k,
       id: `kf-${idx + 1}-${k.type}`, // Normalized ID
-      status: 'pending' 
-    })) : []
-  }));
+      status: 'pending' as const
+    })) : [];
+
+    const startKf = keyframes.find(k => k.type === 'start');
+    const endKf = keyframes.find(k => k.type === 'end');
+
+    return {
+      ...s,
+      id: `shot-${idx + 1}`,
+      keyframes,
+      interval: {
+        id: `int-${idx + 1}`,
+        startKeyframeId: startKf?.id || '',
+        endKeyframeId: endKf?.id || '',
+        duration: 5,
+        motionStrength: 5,
+        status: 'pending' as const
+      }
+    };
+  });
 };
 
 /**
@@ -395,7 +414,9 @@ export const generateVideo = async (prompt: string, startImageBase64?: string, e
 
   const videoUri = operation.response?.generatedVideos?.[0]?.video?.uri;
   if (!videoUri) throw new Error("视频生成失败 (Video generation failed)");
-  
-  // Note: The URI requires the API key appended to fetch the binary
-  return `${videoUri}&key=${apiKey}`;
+
+  // Note: The URI requires the API key appended to fetch the binary.
+  // Pick the correct separator so we don't build an invalid query string.
+  const separator = videoUri.includes('?') ? '&' : '?';
+  return `${videoUri}${separator}key=${apiKey}`;
 };

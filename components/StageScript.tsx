@@ -248,8 +248,8 @@ const StageScript: React.FC<Props> = ({ project, updateProject }) => {
            <span>{localScript.length} 字符</span>
            <span>{localScript.split('\n').length} 行</span>
            <div className="flex items-center gap-1.5">
-             <div className="w-1.5 h-1.5 rounded-full bg-zinc-800"></div>
-             {project.lastModified ? '已自动保存' : '准备就绪'}
+             <div className={`w-1.5 h-1.5 rounded-full ${localScript === project.rawScript ? 'bg-emerald-800' : 'bg-amber-600'}`}></div>
+             {localScript === project.rawScript ? '已自动保存' : '待保存'}
            </div>
         </div>
       </div>
@@ -257,16 +257,7 @@ const StageScript: React.FC<Props> = ({ project, updateProject }) => {
   );
 
   const renderScriptBreakdown = () => {
-    // Deduplication Logic
-    const seenLocations = new Set();
-    const uniqueScenesList = (project.scriptData?.scenes || []).filter(scene => {
-      const normalizedLoc = scene.location.trim().toLowerCase();
-      if (seenLocations.has(normalizedLoc)) {
-        return false;
-      }
-      seenLocations.add(normalizedLoc);
-      return true;
-    });
+    const scenesList = project.scriptData?.scenes || [];
 
     return (
       <div className="flex flex-col h-full bg-[#050505] animate-in fade-in duration-500">
@@ -335,10 +326,10 @@ const StageScript: React.FC<Props> = ({ project, updateProject }) => {
                        <MapPin className="w-3 h-3" /> 场景列表
                     </h3>
                     <div className="space-y-1">
-                       {uniqueScenesList.map((s) => (
-                         <div key={s!.id} className="flex items-center gap-3 text-xs text-zinc-400 group cursor-default p-2 rounded hover:bg-zinc-900/50 transition-colors">
+                       {scenesList.map((s) => (
+                         <div key={s.id} className="flex items-center gap-3 text-xs text-zinc-400 group cursor-default p-2 rounded hover:bg-zinc-900/50 transition-colors">
                             <div className="w-1.5 h-1.5 bg-zinc-700 rounded-full group-hover:bg-zinc-400 transition-colors"></div>
-                            <span className="truncate group-hover:text-zinc-200">{s!.location}</span>
+                            <span className="truncate group-hover:text-zinc-200">{s.location}</span>
                          </div>
                        ))}
                     </div>

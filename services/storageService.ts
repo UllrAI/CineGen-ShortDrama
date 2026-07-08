@@ -30,20 +30,6 @@ export const saveProjectToDB = async (project: ProjectState): Promise<void> => {
   });
 };
 
-export const loadProjectFromDB = async (id: string): Promise<ProjectState> => {
-  const db = await openDB();
-  return new Promise((resolve, reject) => {
-    const tx = db.transaction(STORE_NAME, 'readonly');
-    const store = tx.objectStore(STORE_NAME);
-    const request = store.get(id);
-    request.onsuccess = () => {
-      if (request.result) resolve(request.result);
-      else reject(new Error("Project not found"));
-    };
-    request.onerror = () => reject(request.error);
-  });
-};
-
 export const getAllProjectsMetadata = async (): Promise<ProjectState[]> => {
   const db = await openDB();
   return new Promise((resolve, reject) => {
