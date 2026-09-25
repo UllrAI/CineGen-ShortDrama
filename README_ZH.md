@@ -34,7 +34,7 @@
 
 ## 本地运行 CineGen
 
-需要 Node.js、npm，以及可访问下列模型的 Google Gemini API Key。模型可用性和计费取决于 Google 账号及所在地区。
+需要 Node.js、npm，以及可访问项目所用 Gemini 和 Veo 模型的 Google Gemini API Key。模型可用性和计费取决于 Google 账号及所在地区。
 
 ```bash
 git clone https://github.com/UllrAI/CineGen-ShortDrama.git
@@ -46,16 +46,6 @@ npm run dev
 打开 Vite 输出的本地地址（开发端口配置为 `3000`），在应用中输入 Gemini API Key，然后从 **Phase 01** 创建项目。应用界面目前以中文为主；生成剧本的输出语言可在项目配置中选择。
 
 API Key 保存在浏览器 `localStorage`，项目保存在浏览器 `IndexedDB`。清除站点数据会删除本地保存的项目。
-
-## 技术架构
-
-| 模块 | 实现 |
-| --- | --- |
-| 前端 | React 19、TypeScript、Vite 6、通过 CDN 加载的 Tailwind CSS |
-| 剧本与镜头规划 | `gemini-2.5-flash` |
-| 图像生成 | `gemini-2.5-flash-image` |
-| 视频生成 | `veo-3.1-fast-generate-preview` |
-| 浏览器存储 | `localStorage` 保存 API Key；`IndexedDB` 保存项目 |
 
 ## 许可证、AniKuku 与联系
 

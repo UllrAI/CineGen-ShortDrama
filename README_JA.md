@@ -34,7 +34,7 @@
 
 ## ローカルで実行
 
-Node.js、npm、および下記モデルにアクセスできる Google Gemini API キーが必要です。モデルの利用可否と料金は Google アカウントや地域によって異なります。
+Node.js、npm、および本プロジェクトで使用する Gemini と Veo のモデルにアクセスできる Google Gemini API キーが必要です。モデルの利用可否と料金は Google アカウントや地域によって異なります。
 
 ```bash
 git clone https://github.com/UllrAI/CineGen-ShortDrama.git
@@ -46,16 +46,6 @@ npm run dev
 Vite が表示するローカル URL（開発ポートの設定は `3000`）を開き、Gemini API キーを入力して **Phase 01** からプロジェクトを作成します。アプリの UI は現在主に中国語です。生成する脚本の言語はプロジェクト設定で選択できます。
 
 API キーはブラウザーの `localStorage`、プロジェクトは `IndexedDB` に保存されます。サイトデータを消去すると、ローカルのプロジェクトも削除されます。
-
-## 技術構成
-
-| 領域 | 実装 |
-| --- | --- |
-| フロントエンド | React 19、TypeScript、Vite 6、CDN から読み込む Tailwind CSS |
-| 脚本・ショット構成 | `gemini-2.5-flash` |
-| 画像生成 | `gemini-2.5-flash-image` |
-| 動画生成 | `veo-3.1-fast-generate-preview` |
-| ブラウザー保存 | API キーは `localStorage`、プロジェクトは `IndexedDB` |
 
 ## ライセンス・AniKuku・お問い合わせ
 
