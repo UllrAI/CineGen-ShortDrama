@@ -1,10 +1,15 @@
 # CineGen AI Director (AI 漫剧工场)
 
+[中文](./README.md) ｜ [English](./README_EN.md) ｜  [日本語](./README_JA.md) ｜  [한국인](./README_KO.md)
+
+
 > 同时欢迎试用一站式的漫剧制作平台 [AniKuku AI 漫剧制作平台](https://anikuku.com/?github)  - use `CINEGEN50OFF` checkout for 50%OFF。
 > **AniKuku 提供的优惠码，首次购买，结账时使用 `CINEGEN50OFF` 可以获得 50% 折扣（5 折）**
 
+<img width="1695" height="1029" alt="image" src="https://github.com/user-attachments/assets/4d224a09-5752-4ab5-b4ff-a7ba2cc7a666" />
 
-[中文](./README.md) ｜ [English](./README_EN.md) ｜  [日本語](./README_JA.md) ｜  [한국인](./README_KO.md)
+<img width="1695" height="1029" alt="image" src="https://github.com/user-attachments/assets/f21eb8ca-913d-4485-8be7-d70911505c79" />
+
 
 **CineGen AI Director** 是一个专为 **AI 漫剧 (Motion Comics)**、**动态漫画**及**影视分镜 (Animatic)** 设计的专业生产力工具。
 
