@@ -1,69 +1,76 @@
-# CineGen AI Director (AI 漫劇工場)
+# CineGen AI Director — AIマンガ動画・モーションコミック・ショートドラマ制作
 
-> **産業用 AI モーションコミック & 動画生成ワークベンチ**
-> *Industrial AI Motion Comic & Video Workbench*
+[English](./README.md) · [简体中文](./README_ZH.md) · [日本語](./README_JA.md) · [한국어](./README_KO.md)
 
-The inspiration comes from the one-stop comic production platform [AniKuku AI Comic Production Platform](https://anikuku.com/?github).
+**CineGen AI Director** は、ブラウザーで使える **AIマンガ動画、モーションコミック、アニマティクス、ショートドラマの制作ワークベンチ**です。**脚本 → キャラクター・背景素材 → ショットのキーフレーム → 動画クリップ**という流れで制作を進めます。Google Gemini を脚本整理と画像生成に、Veo を動画クリップ生成に使用します。
 
-> For business inquiries, questions, and communication, please contact me.
+## 画面イメージ
 
-> cinegen@ullrai.com
+![CineGen AI Director のAIマンガ動画制作画面](https://github.com/user-attachments/assets/4d224a09-5752-4ab5-b4ff-a7ba2cc7a666)
 
+![CineGen AI Director のモーションコミック制作フロー画面](https://github.com/user-attachments/assets/f21eb8ca-913d-4485-8be7-d70911505c79)
 
-**CineGen AI Director** は、**AI モーションコミック**、**縦読みマンガ動画**、および**映像絵コンテ (Animatic)** 制作のために設計されたプロフェッショナルツールです。
+![CineGen AI Director のショット一覧と開始・終了キーフレーム編集画面](./UI.png)
 
-従来の「ガチャ」的な生成手法を捨て、**「脚本 -> アセット -> キーフレーム」** という産業用ワークフローを採用しています。Google Gemini 2.5 Flash と Veo モデルを深く統合することで、キャラクターの一貫性、シーンの連続性、そしてカメラワークの精密な制御を実現しました。
+## AIマンガ動画・ショートドラマの制作フロー
 
-## 核となる概念：キーフレーム駆動 (Keyframe-Driven)
+### 1. 脚本と絵コンテ
 
-従来の Text-to-Video モデルでは、具体的なカメラの動きや開始・終了状態を制御することが困難でした。CineGen はアニメーション制作における **キーフレーム (Keyframe)** の概念を導入しました：
+物語のあらすじや脚本を入力し、出力言語と目標尺を選択します。Gemini がシーン、キャラクター、ショットを整理し、画像生成用プロンプトやカメラワークの情報を作成します。
 
-1.  **静止画先行**: まず、正確な開始フレーム (Start) と終了フレーム (End) を生成します。
-2.  **補間生成**: Veo モデルを使用して、2つのフレーム間に滑らかな動画トランジションを生成します。
-3.  **アセット制約**: すべての画面生成は「キャラクター設定画」と「シーンコンセプト画」によって厳密に制約され、キャラクターの崩壊を防ぎます。
+### 2. キャラクターと背景
 
-## 主な機能
+キャラクターとロケーションの参照画像を生成します。キャラクターの基本デザインを参照しながら、衣装違いのビジュアルも作成できます。
 
-### Phase 01: 脚本とストーリーボード (Script & Storyboard)
-*   **インテリジェントな分解**: 小説やあらすじを入力すると、AI が自動的に標準的な脚本構造（シーン、時間、雰囲気）に分解します。
-*   **視覚的翻訳**: テキスト記述をプロ仕様の画像生成プロンプトに自動変換します。
-*   **ペーシング制御**: 目標時間（例：30秒の予告編、3分の短編）を設定すると、AI がショット密度を自動調整します。
+### 3. ディレクターワークベンチ
 
-### Phase 02: アセットとキャスティング (Assets & Casting)
-*   **一貫性のあるキャラクター**:
-    *   各キャラクターの標準参照画像 (Reference Image) を生成します。
-    *   **ワードローブシステム (Wardrobe System)**：ベースの顔立ちを維持したまま、複数の衣装（日常着、戦闘服、負傷状態など）を管理できます。
-*   **美術設定 (Set Design)**：環境参照画像を生成し、同一シーン内の異なるショットでも照明や背景の統一性を保ちます。
+ショットをグリッドで管理し、各ショットの開始フレームと、必要に応じて終了フレームを生成します。シーン画像とキャラクター画像をショット生成の参照に使用し、Veo で開始フレームまたは開始・終了フレームから動画クリップを生成します。
 
-### Phase 03: 監督ワークベンチ (Director Workbench)
-*   **グリッド絵コンテ**: すべてのショットをパノラマビューで管理します。
-*   **精密制御**:
-    *   **Start Frame**: ショットの開始画面（強い一貫性）。
-    *   **End Frame**: (オプション) ショット終了時の状態（例：振り返る、照明の変化）を定義します。
-*   **コンテキスト認識**: AI がショットを生成する際、コンテキスト（現在のシーン画像 + キャラクターの特定の衣装画像）を自動的に読み込み、「シーンの不連続性」を完全に解決します。
-*   **Veo 動画生成**: Image-to-Video モードと Keyframe Interpolation モードの両方をサポートしています。
+### 4. プレビューと進捗確認
 
-### Phase 04: エクスポート (Export)
-*   **タイムラインプレビュー**: 生成されたモーションコミックのセグメントをタイムライン形式でプレビューします。
-*   **レンダリング追跡**: API レンダリングの進行状況をリアルタイムで監視します。
-*   **アセット出力**: Premiere や After Effects での編集用に、すべての高解像度キーフレームと MP4 クリップを一括エクスポートできます。
+生成済みクリップをプレビューし、制作画面でショットの並びと完了状況を確認します。
 
-## 技術スタック
+**キーフレームを使う理由：** ショットの開始画像と任意の終了画像を決めることで、テキストプロンプトだけの場合より構図や画面のつながりを直接指定できます。生成結果の確認と調整は必要です。
 
-*   **Frontend**: React 19, Tailwind CSS (Sony Industrial Design Style)
-*   **AI Models**:
-    *   **Logic/Text**: `gemini-2.5-flash` (脚本分析)
-    *   **Vision**: `gemini-2.5-flash-image` (Nano Banana - 高速描画)
-    *   **Video**: `veo-3.1-fast-generate-preview` (動画補間)
-*   **Storage**: IndexedDB (ブラウザローカルデータベース、プライバシー重視、バックエンド不要)
+## ローカルで実行
 
-## クイックスタート
+Node.js、npm、および下記モデルにアクセスできる Google Gemini API キーが必要です。モデルの利用可否と料金は Google アカウントや地域によって異なります。
 
-1.  **キーの設定**: アプリを起動し、Google Gemini API Key を入力します（Veo を使用するには GCP の課金設定が必要です）。
-2.  **ストーリー入力**: Phase 01 でストーリーのアイデアを入力し、「脚本生成」をクリックします。
-3.  **美術設定**: Phase 02 に進み、キャラクターシートとシーンコンセプトを生成します。
-4.  **ショット制作**: Phase 03 に進み、各ショットのキーフレームを生成します。
-5.  **動画生成**: キーフレームを確認した後、動画クリップを一括生成します。
+```bash
+git clone https://github.com/UllrAI/CineGen-ShortDrama.git
+cd CineGen-ShortDrama
+npm install
+npm run dev
+```
 
----
-*Built for Creators, by CineGen.*
+Vite が表示するローカル URL（開発ポートの設定は `3000`）を開き、Gemini API キーを入力して **Phase 01** からプロジェクトを作成します。アプリの UI は現在主に中国語です。生成する脚本の言語はプロジェクト設定で選択できます。
+
+API キーはブラウザーの `localStorage`、プロジェクトは `IndexedDB` に保存されます。サイトデータを消去すると、ローカルのプロジェクトも削除されます。
+
+## 技術構成
+
+| 領域 | 実装 |
+| --- | --- |
+| フロントエンド | React 19、TypeScript、Vite 6、CDN から読み込む Tailwind CSS |
+| 脚本・ショット構成 | `gemini-2.5-flash` |
+| 画像生成 | `gemini-2.5-flash-image` |
+| 動画生成 | `veo-3.1-fast-generate-preview` |
+| ブラウザー保存 | API キーは `localStorage`、プロジェクトは `IndexedDB` |
+
+## ライセンス・AniKuku・お問い合わせ
+
+本プロジェクトのソースコードには [AniKuku Community License (ACL) v1.0](./license.md) が適用されます。この独自ライセンスにはクレジット表記と商用利用に関する条件があります。使用、変更、再配布、デプロイの前に全文をご確認ください。
+
+[AniKuku](https://anikuku.com/?github-ja) は、オンラインのAIマンガ動画制作プラットフォームと、商用・プライベート環境への導入プランを提供しています。初回購入時には、決済画面で `CINEGEN50OFF` を入力すると 50% 割引になります。適用条件はプラットフォームの最新情報をご確認ください。
+
+提携、導入、ライセンスに関するお問い合わせ：[visoar@ullrai.com](mailto:visoar@ullrai.com)。
+
+## Star History
+
+<a href="https://www.star-history.com/?repos=ullrai%2Fcinegen-shortdrama&type=date&legend=top-left">
+  <picture>
+    <source media="(prefers-color-scheme: dark)" srcset="https://api.star-history.com/chart?repos=ullrai/cinegen-shortdrama&type=date&theme=dark&legend=top-left" />
+    <source media="(prefers-color-scheme: light)" srcset="https://api.star-history.com/chart?repos=ullrai/cinegen-shortdrama&type=date&legend=top-left" />
+    <img alt="CineGen-ShortDrama のGitHubスター推移グラフ" src="https://api.star-history.com/chart?repos=ullrai/cinegen-shortdrama&type=date&legend=top-left" />
+  </picture>
+</a>

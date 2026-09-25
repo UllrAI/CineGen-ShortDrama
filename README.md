@@ -1,95 +1,76 @@
-# CineGen AI Director (AI 漫剧工场)
+# CineGen AI Director — AI Manga, Motion Comics & Short Drama Production
 
-[中文](./README.md) ｜ [English](./README_EN.md) ｜  [日本語](./README_JA.md) ｜  [한국인](./README_KO.md)
+[English](./README.md) · [简体中文](./README_ZH.md) · [日本語](./README_JA.md) · [한국어](./README_KO.md)
 
+**CineGen AI Director** is a browser-based production workbench for **AI manga videos, motion comics, animated comics, animatics, and short dramas**. Its **script → assets → keyframes → video** workflow connects story planning, character and scene references, shot design, and video generation in one place. It uses Google Gemini for script and image generation and Veo for video clips.
 
-> 同时欢迎试用一站式的漫剧制作平台 [AniKuku AI 漫剧制作平台](https://anikuku.com/?github)  - use `CINEGEN50OFF` checkout for 50%OFF。
-> **AniKuku 提供的优惠码，首次购买，结账时使用 `CINEGEN50OFF` 可以获得 50% 折扣（5 折）**
+## Screenshots
 
-<img width="1695" height="1029" alt="image" src="https://github.com/user-attachments/assets/4d224a09-5752-4ab5-b4ff-a7ba2cc7a666" />
+![CineGen AI Director AI manga production interface](https://github.com/user-attachments/assets/4d224a09-5752-4ab5-b4ff-a7ba2cc7a666)
 
-<img width="1695" height="1029" alt="image" src="https://github.com/user-attachments/assets/f21eb8ca-913d-4485-8be7-d70911505c79" />
+![CineGen AI Director motion comic workflow interface](https://github.com/user-attachments/assets/f21eb8ca-913d-4485-8be7-d70911505c79)
 
+![CineGen AI Director shot grid and start/end keyframe editor](./UI.png)
 
-**CineGen AI Director** 是一个专为 **AI 漫剧 (Motion Comics)**、**动态漫画**及**影视分镜 (Animatic)** 设计的专业生产力工具。
+## AI manga and short drama workflow
 
-它摒弃了传统的“抽卡式”生成，采用 **"Script-to-Asset-to-Keyframe"** 的工业化工作流。通过深度集成 Gemini 2.5 Flash 和 Veo 模型，实现了对角色一致性、场景连续性以及镜头运动的精准控制。对动态漫、解说漫均可以有很好表现效果。
+### 1. Script and storyboard
 
-> **工业级 AI 漫剧与视频生成工作台**
-> *Industrial AI Motion Comic & Video Workbench*
+Enter a story outline or script. Choose the output language and target duration, then use Gemini to structure scenes, characters, and shots with visual prompts and camera directions.
 
-![UI Preview](./UI.png)
+### 2. Characters and scenes
 
-## 核心理念：关键帧驱动 (Keyframe-Driven)
+Generate reference images for characters and locations. Create multiple character looks while retaining a base reference for later shots.
 
-传统的 Text-to-Video 往往难以控制具体的运镜和起止画面。CineGen 引入了动画制作中的 **关键帧 (Keyframe)** 概念：
-1.  **先画后动**：先生成精准的起始帧 (Start) 和结束帧 (End)。
-2.  **插值生成**：利用 Veo 模型在两帧之间生成平滑的视频过渡。
-3.  **资产约束**：所有画面生成均受到“角色定妆照”和“场景概念图”的强约束，杜绝人物变形。
+### 3. Director workbench
 
-## 核心功能模块
+Manage shots in a visual grid. Generate a start frame and, when needed, an end frame for each shot. Scene and character images provide visual context for image generation. Use Veo to generate a video clip from the start frame or from both keyframes.
 
-### Phase 01: 剧本与分镜 (Script & Storyboard)
-*   **智能剧本拆解**：输入小说或故事大纲，AI 自动拆解为包含场次、时间、气氛的标准剧本结构。
-*   **视觉化翻译**：自动将文字描述转化为专业的 Midjourney/Stable Diffusion 提示词。
-*   **节奏控制**：支持设定目标时长（如 30s 预告片、3min 短剧），AI 自动规划镜头密度。
+### 4. Preview and production status
 
-### Phase 02: 资产与选角 (Assets & Casting)
-*   **一致性定妆 (Character Consistency)**：
-    *   为每个角色生成标准参考图 (Reference Image)。
-    *   **衣橱系统 (Wardrobe System)**：支持多套造型 (如：日常、战斗、受伤)，基于 Base Look 保持面部特征一致。
-*   **场景概念 (Set Design)**：生成环境参考图，确保同一场景下的不同镜头光影统一。
+Preview generated clips and review the sequence and shot completion status in the production workspace.
 
-### Phase 03: 导演工作台 (Director Workbench)
-*   **网格化分镜表**：全景式管理所有镜头 (Shots)。
-*   **精准控制**：
-    *   **Start Frame**: 生成镜头的起始画面（强一致性）。
-    *   **End Frame**: (可选) 定义镜头结束时的状态（如：人物回头、光线变化）。
-*   **上下文感知**：AI 生成镜头时，会自动读取 Context（当前场景图 + 当前角色特定服装图），彻底解决“不连戏”问题。
-*   **Veo 视频生成**：支持 Image-to-Video 和 Keyframe Interpolation 两种模式。
+**Why keyframes?** Defining the beginning and optional ending image of a shot gives creators more direct control over composition and transitions than a text prompt alone. Generated results still require review and iteration.
 
-### Phase 04: 成片与导出 (Export)
-*   **实时预览**：时间轴形式预览生成的漫剧片段。
-*   **渲染追踪**：实时监控 API 渲染进度。
-*   **资产导出**：支持导出所有高清关键帧和 MP4 片段，方便导入 Premiere/After Effects 进行后期剪辑。
+## Run CineGen locally
 
-## 技术架构
+You need Node.js, npm, and a Google Gemini API key with access to the models listed below. Model availability and billing depend on your Google account and region.
 
-*   **Frontend**: React 19, Tailwind CSS (Sony Industrial Design Style)
-*   **AI Models**:
-    *   **Logic/Text**: `gemini-2.5-flash` (高智商剧本分析)
-    *   **Vision**: `gemini-2.5-flash-image` (Nano Banana - 高速绘图)
-    *   **Video**: `veo-3.1-fast-generate-preview` (首尾帧视频插值)
-*   **Storage**: IndexedDB (本地浏览器数据库，数据隐私安全，无后端依赖)
+```bash
+git clone https://github.com/UllrAI/CineGen-ShortDrama.git
+cd CineGen-ShortDrama
+npm install
+npm run dev
+```
 
-## 快速开始
+Open the local URL printed by Vite (the configured development port is `3000`), enter your Gemini API key, and create a project in **Phase 01**. The application interface is primarily in Chinese; you can choose the generated script's output language in the project settings.
 
-1.  **配置密钥**: 启动应用，输入 Google Gemini API Key (需开通 GCP 结算以使用 Veo)。
-2.  **故事输入**: 在 Phase 01 输入你的故事创意，点击“生成分镜脚本”。
-3.  **美术设定**: 进入 Phase 02，生成主角定妆照和核心场景图。
-4.  **分镜制作**: 进入 Phase 03，逐个生成镜头的关键帧。
-5.  **动效生成**: 确认关键帧无误后，批量生成视频片段。
+The API key is stored in browser `localStorage`, and projects are stored in browser `IndexedDB`. Clearing site data removes locally saved projects.
 
-## License / 许可证
+## Technology
 
-本项目的开源许可说明请参考仓库中的 License 页面：
+| Area | Implementation |
+| --- | --- |
+| Frontend | React 19, TypeScript, Vite 6, Tailwind CSS via CDN |
+| Script and shot planning | `gemini-2.5-flash` |
+| Image generation | `gemini-2.5-flash-image` |
+| Video generation | `veo-3.1-fast-generate-preview` |
+| Browser storage | `localStorage` for the API key; `IndexedDB` for projects |
 
-[查看 CineGen AI Director License](https://github.com/UllrAI/CineGen-ShortDrama?tab=License-1-ov-file)
+## License, AniKuku, and contact
 
-请在使用、修改、分发或商业化使用本项目代码前，仔细阅读并遵守对应许可证条款。
+The source is available under the [AniKuku Community License (ACL) v1.0](./license.md). This custom license includes attribution requirements and commercial-use conditions. Read it before using, modifying, distributing, or deploying the project.
 
-## AniKuku
+[AniKuku](https://anikuku.com/?github) offers a hosted AI manga and motion comic production platform, as well as commercial and private deployment options. For a first purchase, use `CINEGEN50OFF` at checkout for 50% off, subject to AniKuku's current terms.
 
-**AniKuku AI 漫剧制作平台** 也可提供商业化部署/私有化部署，完整包含多租户、用户系统、支付等 SaaS 能力。用于 SaaS 运营或企业内生产流程，支持品牌定制或授权合作，AniKuku 的相关商业部署与授权方案亦可联系此邮箱。
+For collaboration, deployment, or licensing inquiries, contact [visoar@ullrai.com](mailto:visoar@ullrai.com).
 
-## 联系方式
+## Star History
 
-具体合作方式、部署方案与授权范围，可以通过邮件联系：
-
-**[visoar@ullrai.com](mailto:visoar@ullrai.com)**
-
-
----
-*Built for Creators, by CineGen.*
-
-[阿尼酷酷](https://anikuku.com/?github-cn)
+<a href="https://www.star-history.com/?repos=ullrai%2Fcinegen-shortdrama&type=date&legend=top-left">
+  <picture>
+    <source media="(prefers-color-scheme: dark)" srcset="https://api.star-history.com/chart?repos=ullrai/cinegen-shortdrama&type=date&theme=dark&legend=top-left" />
+    <source media="(prefers-color-scheme: light)" srcset="https://api.star-history.com/chart?repos=ullrai/cinegen-shortdrama&type=date&legend=top-left" />
+    <img alt="CineGen-ShortDrama GitHub star history chart" src="https://api.star-history.com/chart?repos=ullrai/cinegen-shortdrama&type=date&legend=top-left" />
+  </picture>
+</a>
