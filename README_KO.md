@@ -34,7 +34,7 @@
 
 ## 로컬에서 실행
 
-Node.js, npm, 아래 모델에 접근할 수 있는 Google Gemini API 키가 필요합니다. 모델 이용 가능 여부와 요금은 Google 계정 및 지역에 따라 다릅니다.
+Node.js, npm, 그리고 이 프로젝트에서 사용하는 Gemini 및 Veo 모델에 접근할 수 있는 Google Gemini API 키가 필요합니다. 모델 이용 가능 여부와 요금은 Google 계정 및 지역에 따라 다릅니다.
 
 ```bash
 git clone https://github.com/UllrAI/CineGen-ShortDrama.git
@@ -46,16 +46,6 @@ npm run dev
 Vite가 출력한 로컬 URL(설정된 개발 포트는 `3000`)을 열고 Gemini API 키를 입력한 다음 **Phase 01**에서 프로젝트를 만드세요. 앱 UI는 현재 주로 중국어로 제공됩니다. 생성할 시나리오의 출력 언어는 프로젝트 설정에서 선택할 수 있습니다.
 
 API 키는 브라우저 `localStorage`에, 프로젝트는 `IndexedDB`에 저장됩니다. 사이트 데이터를 삭제하면 로컬에 저장된 프로젝트도 삭제됩니다.
-
-## 기술 구성
-
-| 영역 | 구현 |
-| --- | --- |
-| 프런트엔드 | React 19, TypeScript, Vite 6, CDN으로 불러오는 Tailwind CSS |
-| 시나리오·샷 기획 | `gemini-2.5-flash` |
-| 이미지 생성 | `gemini-2.5-flash-image` |
-| 영상 생성 | `veo-3.1-fast-generate-preview` |
-| 브라우저 저장 | API 키는 `localStorage`, 프로젝트는 `IndexedDB` |
 
 ## 라이선스·AniKuku·문의
 

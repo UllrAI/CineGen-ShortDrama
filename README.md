@@ -34,7 +34,7 @@ Preview generated clips and review the sequence and shot completion status in th
 
 ## Run CineGen locally
 
-You need Node.js, npm, and a Google Gemini API key with access to the models listed below. Model availability and billing depend on your Google account and region.
+You need Node.js, npm, and a Google Gemini API key with access to the Gemini and Veo models used by the project. Model availability and billing depend on your Google account and region.
 
 ```bash
 git clone https://github.com/UllrAI/CineGen-ShortDrama.git
@@ -46,16 +46,6 @@ npm run dev
 Open the local URL printed by Vite (the configured development port is `3000`), enter your Gemini API key, and create a project in **Phase 01**. The application interface is primarily in Chinese; you can choose the generated script's output language in the project settings.
 
 The API key is stored in browser `localStorage`, and projects are stored in browser `IndexedDB`. Clearing site data removes locally saved projects.
-
-## Technology
-
-| Area | Implementation |
-| --- | --- |
-| Frontend | React 19, TypeScript, Vite 6, Tailwind CSS via CDN |
-| Script and shot planning | `gemini-2.5-flash` |
-| Image generation | `gemini-2.5-flash-image` |
-| Video generation | `veo-3.1-fast-generate-preview` |
-| Browser storage | `localStorage` for the API key; `IndexedDB` for projects |
 
 ## License, AniKuku, and contact
 
